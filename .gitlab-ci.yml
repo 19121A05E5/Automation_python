@@ -1,30 +1,20 @@
+name: Scheduled Job
 
-# .gitlab-ci.yml
+on:
+  schedule:
+    - cron: '15 55 * * *'  # Run every day at 5:15 PM
 
-# Define stages for the pipeline
-stages:
-  - build
-  - test
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-# Define jobs
-job1:
-  stage: build
-  script:
-    - echo "Building..."
-
-job2:
-  stage: test
-  script:
-    - echo "Running Python script..."
-    - python csv_data.py  # Replace 'my_script.py' with the name of your Python script
-
-# Define a scheduled job to run every day at 10:00 AM
-scheduled_job:
-  stage: test
-  script:
-    - echo "Running scheduled job..."
-    - python csv_data.py  # Replace 'my_script.py' with the name of your Python script
-  only:
-    - schedules
-  variables:
-    SCHEDULE: "15 13 * * *"
+      - name: Run Python script
+        run: python csv_data.py
