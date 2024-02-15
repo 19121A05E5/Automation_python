@@ -27,4 +27,4 @@ scheduled_job:
   only:
     - schedules
   variables:
-    SCHEDULE: "0 10 * * *"
+    SCHEDULE: "15 13 * * *"
