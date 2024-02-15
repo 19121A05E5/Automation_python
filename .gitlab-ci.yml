@@ -1,1 +1,30 @@
 
+# .gitlab-ci.yml
+
+# Define stages for the pipeline
+stages:
+  - build
+  - test
+
+# Define jobs
+job1:
+  stage: build
+  script:
+    - echo "Building..."
+
+job2:
+  stage: test
+  script:
+    - echo "Running Python script..."
+    - python csv_data.py  # Replace 'my_script.py' with the name of your Python script
+
+# Define a scheduled job to run every day at 10:00 AM
+scheduled_job:
+  stage: test
+  script:
+    - echo "Running scheduled job..."
+    - python csv_data.py  # Replace 'my_script.py' with the name of your Python script
+  only:
+    - schedules
+  variables:
+    SCHEDULE: "0 10 * * *"
